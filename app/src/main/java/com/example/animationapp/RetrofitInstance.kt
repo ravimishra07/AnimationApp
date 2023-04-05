@@ -9,7 +9,7 @@ object RetrofitInstance {
         Retrofit.Builder().baseUrl(" https://api.giphy.com/").addConverterFactory(GsonConverterFactory
             .create()).build()
     }
-    val apiInterface by lazy {
+    val memeApi:apiInterface by lazy {
         retrofit.create(ApiClient::class.java)
     }
 }

@@ -30,17 +30,12 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setAdapter(){
         val recyclerview =findViewById<RecyclerView>(R.id.animationRecyclerView)
-      recyclerview.layoutManager = GridLayoutManager(this,2)
+      recyclerview.layoutManager= GridLayoutManager(this,2)
        // val data = mutableListOf<Data>()
-        //val adapter = AdapterClass(data, it)
-        //recyclerview.adapter = adapter
-        //adapter.notifyDataSetChanged()
         getData()
     }
-
-
     private fun getData(){
-     RetrofitInstance.apiInterface.getData(Constants.GIPHY_API_KEY,25).enqueue(object : Callback<GifData> {
+     RetrofitInstance.apiInterface.getData(Constants.GIPHY_API_KEY,15).enqueue(object : Callback<GifData> {
          override fun onResponse(call: Call<GifData>, response: Response<GifData>) {
              if (response.isSuccessful && response.body()!!.data != null) {
                  Log.v("xyzz",(response.body()?.data?.size?:0).toString())
@@ -49,13 +44,11 @@ class MainActivity : AppCompatActivity() {
                  rvAdapter = this@MainActivity?.let { AdapterClass(data) }
                  recyclerView.adapter =rvAdapter
                  rvAdapter!!.notifyDataSetChanged()
-
                  }
 
              else{
                  Toast.makeText(this@MainActivity,"Failure",Toast.LENGTH_SHORT).show()
              }
-
          }
          override fun onFailure(call: Call<GifData>, t: Throwable) {
              Toast.makeText(this@MainActivity,"failure attempt",Toast.LENGTH_SHORT).show()
